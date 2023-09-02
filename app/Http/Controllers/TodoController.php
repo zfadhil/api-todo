@@ -22,4 +22,16 @@ class TodoController extends Controller
         $todo = Todo::create($request->all());
         return new TodoResource($todo);
     }
+
+    public function update(Request $request, $id){
+        $request -> validate([
+            'todo_content' => 'required|max:255',
+            'statuss' => 'required'
+        ]);
+
+        $todo = Todo::findOrFail($id);
+        $todo->update($request->all());
+
+        return new TodoResource($todo);
+    }
 }
